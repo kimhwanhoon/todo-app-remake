@@ -1,38 +1,59 @@
 import React from 'react';
 import { styled } from 'styled-components';
+import { useSelector, useDispatch } from 'react-redux';
+import { actionCreator } from 'redux/modules/In Progress Cards';
 
 function ContentBottom() {
+  const dispatch = useDispatch();
+  const DoneCardsArray = useSelector((state) => {
+    return state.InProgressCards;
+  });
+  const FetchDoneCards = () => {
+    return DoneCardsArray.filter((card) => card.done === true) // done이 false인것, 즉, In Progress
+      .map((card) => {
+        return (
+          <div key={card.id} className="card">
+            <div className="card-top">
+              <h1>{card.todo}</h1>
+              <div className="card-top-icons-container">
+                <img
+                  className="done-card-icon-back"
+                  src="img/back.png"
+                  alt="back to in progress"
+                  onClick={(e) =>
+                    actionCreator(e, dispatch, card.todo, card.time, card.id)
+                  }
+                />
+                <img
+                  id="card-icon-delete"
+                  className="done-card-icon-delete"
+                  src="img/delete.png"
+                  alt="delete card"
+                  onClick={(e) =>
+                    actionCreator(e, dispatch, card.todo, card.time, card.id)
+                  }
+                />
+              </div>
+            </div>
+            <div className="card-bottom">
+              <p>
+                Must done by <span>{card.time}</span>
+              </p>
+              <p>
+                Wrote at: <span>{card['wrote time']}</span>
+              </p>
+            </div>
+          </div>
+        );
+      });
+  };
   return (
     <StyledContentBottom>
       <div className="card-title-container">
         <h2>Done</h2>
       </div>
       <div className="cards-container">
-        <div className="card">
-          <div className="card-top">
-            <h1>Content of todo</h1>
-            <div className="card-top-icons-container">
-              <img
-                className="done-card-icon-back"
-                src="img/back.png"
-                alt="back to in progress"
-              />
-              <img
-                className="done-card-icon-delete"
-                src="img/delete.png"
-                alt="delete card"
-              />
-            </div>
-          </div>
-          <div className="card-bottom">
-            <p>
-              Must done by <span>00:00</span>
-            </p>
-            <p>
-              Wrote at: <span>2023.06.20 00:00</span>
-            </p>
-          </div>
-        </div>
+        <FetchDoneCards />
       </div>
     </StyledContentBottom>
   );
@@ -52,7 +73,7 @@ const StyledContentBottom = styled.div`
   flex-direction: column;
   width: 80%;
   min-width: 500px;
-  max-width: 800px;
+  max-width: 700px;
   color: #1f2937;
   height: 400px;
 `;
