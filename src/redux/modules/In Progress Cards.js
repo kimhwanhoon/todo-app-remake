@@ -45,7 +45,7 @@ function InProgressCards(state = initialState, action) {
     default:
       return state;
 
-    case ADD:
+    case ADD: {
       const todoInput = document.getElementById('todo');
       const timeInput = document.getElementById('time');
       if (todoInput.value === '') {
@@ -71,8 +71,9 @@ function InProgressCards(state = initialState, action) {
       ];
       resetInput();
       return result;
+    }
     //
-    case CHANGE:
+    case CHANGE: {
       const copiedStateToDone = structuredClone(state);
       const targetIndexToDone = copiedStateToDone.findIndex(
         (card) => card.id === action.id
@@ -80,14 +81,20 @@ function InProgressCards(state = initialState, action) {
       copiedStateToDone[targetIndexToDone].done =
         !copiedStateToDone[targetIndexToDone].done;
       return copiedStateToDone;
+    }
+
     //
-    case DELETE:
+    case DELETE: {
+      if (!confirm('Do you confirm to delete?')) {
+        return state;
+      }
       const copiedStateToDelete = structuredClone(state);
-      const copiedStateAfterFilter = copiedStateToDelete.filter(
+      const result = copiedStateToDelete.filter(
         (card) => card.id !== action.id
       );
 
-      return copiedStateAfterFilter;
+      return result;
+    }
   }
 }
 
