@@ -1,25 +1,47 @@
-import logo from './logo.svg';
+import Header from 'components/Header';
 import './App.css';
+import './reset.css';
+import { styled } from 'styled-components';
+import Content from 'components/Content/Content';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <StyledMain>
+      <StyledSection>
+        <Header />
+        <Content />
+      </StyledSection>
+    </StyledMain>
   );
 }
 
 export default App;
+
+//
+//
+//
+//
+//
+// STYLE
+
+const StyledMain = styled.main`
+  background: linear-gradient(305deg, #de6161, #2657eb);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+`;
+
+const StyledSection = styled.section`
+  border-radius: 12px;
+  background: #f8fafc;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: auto;
+  height: calc(100vh - 80px);
+  width: 100%;
+  min-width: 800px;
+  max-width: 1200px;
+`;
