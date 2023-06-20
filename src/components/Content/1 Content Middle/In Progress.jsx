@@ -1,8 +1,10 @@
-import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { styled } from 'styled-components';
+import { actionCreator } from 'redux/modules/In Progress Cards';
 
 function ContentMiddle() {
+  const dispatch = useDispatch();
   const inProgressCardsArray = useSelector((state) => {
     return state.InProgressCards;
   });
@@ -19,9 +21,13 @@ function ContentMiddle() {
                 alt="mark to done"
               />
               <img
+                id="in-progress-card-icon-delete"
                 className="in-progress-card-icon-delete"
                 src="img/delete.png"
                 alt="delete card"
+                onClick={(e) =>
+                  actionCreator(e, dispatch, card.todo, card.time, card.id)
+                }
               />
             </div>
           </div>
@@ -43,31 +49,6 @@ function ContentMiddle() {
         <h2>In Progress</h2>
       </div>
       <div className="cards-container">
-        <div className="card">
-          <div className="card-top">
-            <h1>Content of todo</h1>
-            <div className="card-top-icons-container">
-              <img
-                className="in-progress-card-icon-check"
-                src="img/check.png"
-                alt="mark to done"
-              />
-              <img
-                className="in-progress-card-icon-delete"
-                src="img/delete.png"
-                alt="delete card"
-              />
-            </div>
-          </div>
-          <div className="card-bottom">
-            <p>
-              Must done by <span>00:00</span>
-            </p>
-            <p>
-              Wrote at: <span>2023.06.20 00:00</span>
-            </p>
-          </div>
-        </div>
         <FetchInProgressCards />
       </div>
     </StyledContentMiddle>
