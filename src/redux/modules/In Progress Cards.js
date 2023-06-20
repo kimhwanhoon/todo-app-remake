@@ -1,8 +1,9 @@
 const initialState = [];
 
-const SIMPLE_ADD =
-  'Simple add, add from Content Top "Add button" to add new todo card.';
-const SIMPLE_DELETE = 'Simple delete from "In Progress Card"';
+const ADD = 'Add by clicking "Add button" to add new todo card.';
+const CHANGE = 'Switch done key to true/false';
+const DELETE = 'Delete card';
+
 // 시간 등록 및 UUID 배출 함수
 const getCurrentTime = () => {
   const year = new Date().getFullYear();
@@ -16,26 +17,46 @@ const getCurrentTime = () => {
   const UNIQUE_ID = new Date().getTime();
   return [CURRENT_TIME, UNIQUE_ID];
 };
-
-export const actionCreator = (e, fn, todoValue, timeValue, ID) => {
-  if (
-    e.target.id === 'add-button' ||
-    e.target.classList.contains('done-card-icon-back')
-  ) {
-    fn({ type: SIMPLE_ADD, todo: todoValue, time: timeValue });
-  } else if (
-    e.target.classList.contains('in-progress-card-icon-delete') ||
-    e.target.classList.contains('in-progress-card-icon-check')
-  ) {
-    fn({ type: SIMPLE_DELETE, id: ID });
-  }
+// 인풋 초기화 함수
+const resetInput = () => {
+  document.getElementById('todo').value = '';
+  document.getElementById('time').value = '';
 };
 
+export const actionCreator = (e, fn, todoValue, timeValue, ID) => {
+  if (e.target.id === 'add-button') {
+    fn({ type: ADD, todo: todoValue, time: timeValue });
+  } else if (
+    e.target.classList.contains('in-progress-card-icon-check') ||
+    e.target.classList.contains('done-card-icon-back')
+  ) {
+    fn({ type: CHANGE, id: ID });
+  } else if (
+    e.target.classList.contains('in-progress-card-icon-delete') ||
+    e.target.classList.contains('done-card-icon-delete')
+  ) {
+    fn({ type: DELETE, id: ID });
+  }
+};
+//
+// actionCreator(e, dispatch, card.todo, card.time, card.id)
 function InProgressCards(state = initialState, action) {
   switch (action.type) {
     default:
       return state;
-    case SIMPLE_ADD:
+
+    case ADD:
+      const todoInput = document.getElementById('todo');
+      const timeInput = document.getElementById('time');
+      if (todoInput.value === '') {
+        alert('Please type your to do.');
+        todoInput.focus();
+        return state;
+      } else if (timeInput.value === '') {
+        alert('Please set the time.');
+        timeInput.focus();
+        return state;
+      }
       const [time, id] = getCurrentTime();
       const copiedStateToAdd = structuredClone(state);
       const result = [
@@ -45,16 +66,28 @@ function InProgressCards(state = initialState, action) {
           todo: action.todo,
           time: action.time,
           'wrote time': time,
+          done: false,
         },
       ];
+      resetInput();
       return result;
-    case SIMPLE_DELETE:
-      console.log('SIMPLE_DELETE activated.');
+    //
+    case CHANGE:
+      const copiedStateToDone = structuredClone(state);
+      const targetIndexToDone = copiedStateToDone.findIndex(
+        (card) => card.id === action.id
+      );
+      copiedStateToDone[targetIndexToDone].done =
+        !copiedStateToDone[targetIndexToDone].done;
+      return copiedStateToDone;
+    //
+    case DELETE:
       const copiedStateToDelete = structuredClone(state);
-      const filteredState = copiedStateToDelete.filter(
+      const copiedStateAfterFilter = copiedStateToDelete.filter(
         (card) => card.id !== action.id
       );
-      return filteredState;
+
+      return copiedStateAfterFilter;
   }
 }
 

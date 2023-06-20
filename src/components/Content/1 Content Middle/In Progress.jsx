@@ -8,40 +8,46 @@ function ContentMiddle() {
   const inProgressCardsArray = useSelector((state) => {
     return state.InProgressCards;
   });
+
   const FetchInProgressCards = () => {
-    return inProgressCardsArray.map((card) => {
-      return (
-        <div key={card.id} className="card">
-          <div className="card-top">
-            <h1>{card.todo}</h1>
-            <div className="card-top-icons-container">
-              <img
-                className="in-progress-card-icon-check"
-                src="img/check.png"
-                alt="mark to done"
-              />
-              <img
-                id="in-progress-card-icon-delete"
-                className="in-progress-card-icon-delete"
-                src="img/delete.png"
-                alt="delete card"
-                onClick={(e) =>
-                  actionCreator(e, dispatch, card.todo, card.time, card.id)
-                }
-              />
+    return inProgressCardsArray
+      .filter((card) => card.done === false) // done이 false인것, 즉, In Progress
+      .map((card) => {
+        return (
+          <div key={card.id} className="card">
+            <div className="card-top">
+              <h1>{card.todo}</h1>
+              <div className="card-top-icons-container">
+                <img
+                  className="in-progress-card-icon-check"
+                  src="img/check.png"
+                  alt="mark to done"
+                  onClick={(e) =>
+                    actionCreator(e, dispatch, card.todo, card.time, card.id)
+                  }
+                />
+                <img
+                  id="in-progress-card-icon-delete"
+                  className="in-progress-card-icon-delete"
+                  src="img/delete.png"
+                  alt="delete card"
+                  onClick={(e) =>
+                    actionCreator(e, dispatch, card.todo, card.time, card.id)
+                  }
+                />
+              </div>
+            </div>
+            <div className="card-bottom">
+              <p>
+                Must done by <span>{card.time}</span>
+              </p>
+              <p>
+                Wrote at: <span>{card['wrote time']}</span>
+              </p>
             </div>
           </div>
-          <div className="card-bottom">
-            <p>
-              Must done by <span>{card.time}</span>
-            </p>
-            <p>
-              Wrote at: <span>{card['wrote time']}</span>
-            </p>
-          </div>
-        </div>
-      );
-    });
+        );
+      });
   };
   return (
     <StyledContentMiddle>
@@ -69,7 +75,7 @@ const StyledContentMiddle = styled.div`
   flex-direction: column;
   width: 80%;
   min-width: 500px;
-  max-width: 800px;
+  max-width: 700px;
   margin-top: 2rem;
   color: #1f2937;
   height: 400px;
