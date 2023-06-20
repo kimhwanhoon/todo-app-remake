@@ -1,12 +1,5 @@
-import React from 'react';
-
 const initialState = [];
 
-// reducer는 state와 action 2가지의 인자를 받는다.
-// 마찬가지로 action은 dispatch 함수 안에 있는 객체이다.
-// 그리고 보통 type과 payload의 key를 갖는다.
-// 단순 등록, 단순 제거
-// done으로 이동, done에서 복귀
 const SIMPLE_ADD =
   'Simple add, add from Content Top "Add button" to add new todo card.';
 const SIMPLE_DELETE = 'Simple delete from "In Progress Card"';
@@ -24,7 +17,7 @@ const getCurrentTime = () => {
   return [CURRENT_TIME, UNIQUE_ID];
 };
 
-export const actionCreator = (e, fn, todoValue, timeValue) => {
+export const actionCreator = (e, fn, todoValue, timeValue, ID) => {
   if (
     e.target.id === 'add-button' ||
     e.target.classList.contains('done-card-icon-back')
@@ -34,19 +27,19 @@ export const actionCreator = (e, fn, todoValue, timeValue) => {
     e.target.classList.contains('in-progress-card-icon-delete') ||
     e.target.classList.contains('in-progress-card-icon-check')
   ) {
-    fn({ type: SIMPLE_DELETE });
+    fn({ type: SIMPLE_DELETE, id: ID });
   }
 };
+
 function InProgressCards(state = initialState, action) {
   switch (action.type) {
     default:
       return state;
     case SIMPLE_ADD:
-      console.log('SIMPLE_ADD activated');
       const [time, id] = getCurrentTime();
-      const copiedState = structuredClone(state);
+      const copiedStateToAdd = structuredClone(state);
       const result = [
-        ...copiedState,
+        ...copiedStateToAdd,
         {
           id: id,
           todo: action.todo,
@@ -54,10 +47,14 @@ function InProgressCards(state = initialState, action) {
           'wrote time': time,
         },
       ];
-      console.log(result);
       return result;
     case SIMPLE_DELETE:
-      console.log('SIMPLE_DELETE');
+      console.log('SIMPLE_DELETE activated.');
+      const copiedStateToDelete = structuredClone(state);
+      const filteredState = copiedStateToDelete.filter(
+        (card) => card.id !== action.id
+      );
+      return filteredState;
   }
 }
 
