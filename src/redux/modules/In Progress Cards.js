@@ -22,6 +22,11 @@ const resetInput = () => {
   document.getElementById('todo').value = '';
   document.getElementById('time').value = '';
 };
+// 로컬 저장 함수
+const saveLocal = (state) => {
+  const stateToSave = JSON.stringify(state);
+  localStorage.setItem('list', stateToSave);
+};
 
 export const actionCreator = (e, fn, todoValue, timeValue, ID) => {
   if (e.target.id === 'add-button') {
@@ -39,13 +44,12 @@ export const actionCreator = (e, fn, todoValue, timeValue, ID) => {
   }
 };
 //
-// actionCreator(e, dispatch, card.todo, card.time, card.id)
 function InProgressCards(state = initialState, action) {
   switch (action.type) {
     default:
       return state;
 
-    case ADD:
+    case ADD: {
       const todoInput = document.getElementById('todo');
       const timeInput = document.getElementById('time');
       if (todoInput.value === '') {
@@ -70,24 +74,33 @@ function InProgressCards(state = initialState, action) {
         },
       ];
       resetInput();
+      saveLocal(result);
       return result;
+    }
     //
-    case CHANGE:
+    case CHANGE: {
       const copiedStateToDone = structuredClone(state);
       const targetIndexToDone = copiedStateToDone.findIndex(
         (card) => card.id === action.id
       );
       copiedStateToDone[targetIndexToDone].done =
         !copiedStateToDone[targetIndexToDone].done;
+      saveLocal(copiedStateToDone);
       return copiedStateToDone;
+    }
+
     //
-    case DELETE:
+    case DELETE: {
+      if (!confirm('Do you confirm to delete?')) {
+        return state;
+      }
       const copiedStateToDelete = structuredClone(state);
-      const copiedStateAfterFilter = copiedStateToDelete.filter(
+      const result = copiedStateToDelete.filter(
         (card) => card.id !== action.id
       );
-
-      return copiedStateAfterFilter;
+      saveLocal(result);
+      return result;
+    }
   }
 }
 

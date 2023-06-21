@@ -81,7 +81,7 @@ const StyledInput = styled.div`
   }
 
   button {
-    width: 75px;
+    width: 110px;
     background-color: #6366f1;
     border: none;
     border-radius: 10px;

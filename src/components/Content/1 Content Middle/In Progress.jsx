@@ -1,16 +1,23 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+//
 import { styled } from 'styled-components';
 import { actionCreator } from 'redux/modules/In Progress Cards';
 
 function ContentMiddle() {
-  const dispatch = useDispatch();
-  const inProgressCardsArray = useSelector((state) => {
-    return state.InProgressCards;
-  });
-
+  //
   const FetchInProgressCards = () => {
-    return inProgressCardsArray
+    const dispatch = useDispatch();
+    const cardArray = useSelector((state) => {
+      const dataFromLocal = JSON.parse(localStorage.getItem('list')) ?? [];
+      // useSelector에서 가져온 data가 비어있으면, 로컬에서 가져온 데이터를 쓰기
+      if (!state.InProgressCards.length) {
+        state.InProgressCards = [...dataFromLocal];
+      }
+      return state.InProgressCards;
+    });
+
+    return cardArray
       .filter((card) => card.done === false) // done이 false인것, 즉, In Progress
       .map((card) => {
         return (
@@ -49,6 +56,8 @@ function ContentMiddle() {
         );
       });
   };
+  //
+  //
   return (
     <StyledContentMiddle>
       <div className="card-title-container">

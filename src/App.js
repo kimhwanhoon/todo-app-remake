@@ -1,3 +1,4 @@
+import React from 'react';
 import Header from 'components/Header';
 import './App.css';
 import './reset.css';
@@ -44,4 +45,5 @@ const StyledSection = styled.section`
   width: 100%;
   min-width: 800px;
   max-width: 1200px;
+  box-shadow: 0 0 50px 0px #99999988;
 `;
