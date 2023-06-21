@@ -6,7 +6,7 @@ function ContentTop() {
   return (
     <StyledContentTop>
       <div>
-        <h1 id="content-top-title">Add your To do</h1>
+        <h1 id="content-top-title">Add Your Task</h1>
       </div>
       <Input />
     </StyledContentTop>
@@ -32,11 +32,12 @@ const StyledContentTop = styled.div`
   #content-top-title {
     text-align: center;
     width: 300px;
-    border-bottom: 3px #333 solid;
-    padding-bottom: 0.4rem;
+    border-bottom: 5px #333 solid;
+    padding-bottom: 0.7rem;
     color: #333;
-    font-size: 1.75rem;
-    font-weight: 700;
-    margin-bottom: 0.5rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    text-shadow: #ccc 0 0 2px;
   }
 `;

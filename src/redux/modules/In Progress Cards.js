@@ -22,6 +22,11 @@ const resetInput = () => {
   document.getElementById('todo').value = '';
   document.getElementById('time').value = '';
 };
+// 로컬 저장 함수
+const saveLocal = (state) => {
+  const stateToSave = JSON.stringify(state);
+  localStorage.setItem('list', stateToSave);
+};
 
 export const actionCreator = (e, fn, todoValue, timeValue, ID) => {
   if (e.target.id === 'add-button') {
@@ -39,7 +44,6 @@ export const actionCreator = (e, fn, todoValue, timeValue, ID) => {
   }
 };
 //
-// actionCreator(e, dispatch, card.todo, card.time, card.id)
 function InProgressCards(state = initialState, action) {
   switch (action.type) {
     default:
@@ -70,6 +74,7 @@ function InProgressCards(state = initialState, action) {
         },
       ];
       resetInput();
+      saveLocal(result);
       return result;
     }
     //
@@ -80,6 +85,7 @@ function InProgressCards(state = initialState, action) {
       );
       copiedStateToDone[targetIndexToDone].done =
         !copiedStateToDone[targetIndexToDone].done;
+      saveLocal(copiedStateToDone);
       return copiedStateToDone;
     }
 
@@ -92,7 +98,7 @@ function InProgressCards(state = initialState, action) {
       const result = copiedStateToDelete.filter(
         (card) => card.id !== action.id
       );
-
+      saveLocal(result);
       return result;
     }
   }
