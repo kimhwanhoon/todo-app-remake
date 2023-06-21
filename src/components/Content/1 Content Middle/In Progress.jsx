@@ -1,8 +1,9 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-//
 import { styled } from 'styled-components';
 import { actionCreator } from 'redux/modules/In Progress Cards';
+// route
+import { useNavigate } from 'react-router-dom';
 
 function ContentMiddle() {
   //
@@ -16,12 +17,17 @@ function ContentMiddle() {
       }
       return state.InProgressCards;
     });
-
+    // route
+    const navigate = useNavigate();
     return cardArray
       .filter((card) => card.done === false) // done이 false인것, 즉, In Progress
       .map((card) => {
         return (
-          <div key={card.id} className="card">
+          <div
+            key={card.id}
+            className="card"
+            onClick={() => navigate(`/todo-detail/${card.id}`)}
+          >
             <div className="card-top">
               <h1>{card.todo}</h1>
               <div className="card-top-icons-container">
