@@ -19,6 +19,15 @@ function ContentMiddle() {
     });
     // route
     const navigate = useNavigate();
+    // route function
+    const clickToNavigate = (e, id) => {
+      if (e.target.classList.contains('in-progress-card-icon-check')) {
+        return;
+      } else if (e.target.classList.contains('in-progress-card-icon-delete')) {
+        return;
+      }
+      navigate(`/todo-detail/${id}`);
+    };
     return cardArray
       .filter((card) => card.done === false) // done이 false인것, 즉, In Progress
       .map((card) => {
@@ -26,14 +35,14 @@ function ContentMiddle() {
           <div
             key={card.id}
             className="card"
-            onClick={() => navigate(`/todo-detail/${card.id}`)}
+            onClick={(e) => clickToNavigate(e, card.id)}
           >
             <div className="card-top">
               <h1>{card.todo}</h1>
               <div className="card-top-icons-container">
                 <img
                   className="in-progress-card-icon-check"
-                  src="img/check.png"
+                  src="/img/check.png"
                   alt="mark to done"
                   onClick={(e) =>
                     actionCreator(e, dispatch, card.todo, card.time, card.id)
@@ -42,7 +51,7 @@ function ContentMiddle() {
                 <img
                   id="in-progress-card-icon-delete"
                   className="in-progress-card-icon-delete"
-                  src="img/delete.png"
+                  src="/img/delete.png"
                   alt="delete card"
                   onClick={(e) =>
                     actionCreator(e, dispatch, card.todo, card.time, card.id)
