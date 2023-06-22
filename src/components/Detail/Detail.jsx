@@ -7,6 +7,7 @@ import { actionCreator } from 'redux/modules/inProgressCards';
 
 function Detail() {
   const param = useParams();
+  console.log(param);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   //
@@ -16,11 +17,18 @@ function Detail() {
   const targetCard = cardArray.filter(
     (card) => card.id === Number(param.id)
   )[0];
-
   //
   animateDisplay();
   const [todoValue, setTodoValue] = useState(targetCard.todo);
   const [timeValue, setTimeValue] = useState(targetCard.time);
+
+  // ESC 누르면 뒤로가기
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      navigate(`/`);
+    }
+  });
 
   return (
     <StyledDetail id="detail-container">
