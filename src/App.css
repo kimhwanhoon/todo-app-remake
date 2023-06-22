@@ -5,10 +5,54 @@ html {
     Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
+:root {
+  --main_background: linear-gradient(305deg, #de6161, #2657eb);
+  --body_background1: white;
+  --body_background2: #f5f7f9;
+  --primary_button: #6366f1;
+  --header_background: linear-gradient(292deg, #141e30, #243b55);
+  --font_color: #222;
+  --content_background: #f8fafc;
+  --divider: 5px #333 solid;
+  --card: #ffffff;
+  --card_shadow: 0 4px 6px -1px #c7d2fe, 0 2px 4px -2px #c7d2fe;
+  --check_icon: url(../public/img/check.png);
+  --back_icon: url(../public/img/back.png);
+  --delete_icon: url(../public/img/delete.png);
+  --input: white;
+}
+[data-theme='dark'] {
+  --main_background: linear-gradient(
+    205deg,
+    rgba(170, 75, 107, 1) 0%,
+    rgba(107, 107, 131, 1) 52%,
+    rgba(59, 141, 153, 1) 100%
+  );
+
+  --body_background1: black;
+  --header_background: linear-gradient(
+    23deg,
+    rgb(67, 69, 149) 0%,
+    rgba(36, 11, 54, 1) 35%
+  );
+  --content_background: #202225;
+  --font_color: white;
+  --divider: 5px #f2f2f2 solid;
+  --card: #1e1e1e;
+  --card_shadow: 0 4px 6px -1px #748ae0, 0 2px 4px -2px #272c43;
+  --check_icon: url(../public/img/check-white.png);
+  --back_icon: url(../public/img/back-white.png);
+  --delete_icon: url(../public/img/delete-white.png);
+  --input: #0f0619;
+}
+* {
+  transition: 0.3s ease-in-out;
+}
+
 .card-title-container {
   width: 120px;
   margin-top: 1.5rem;
-  border-bottom: 3px solid #000;
+  border-bottom: var(--divider);
   margin-bottom: 1.5rem;
   transition: cubic-bezier(0, 0, 0.2, 1) 0.3s;
 }
@@ -20,6 +64,7 @@ html {
   font-weight: 600;
   padding-bottom: 0.5rem;
   text-shadow: #a6a6a6 0 0 1px;
+  color: var(--font_color);
 }
 
 .cards-container {
@@ -32,9 +77,9 @@ html {
 
 .card {
   width: 90%;
-  box-shadow: 0 4px 6px -1px #c7d2fe, 0 2px 4px -2px #c7d2fe;
+  box-shadow: var(--card_shadow);
   border-radius: 8px;
-  background-color: #fff;
+  background-color: var(--card);
   transition: cubic-bezier(0, 0, 0.2, 1) 0.3s;
   cursor: pointer;
   margin-bottom: 1.25rem;
@@ -54,18 +99,11 @@ html {
 }
 .card-top h1 {
   width: 75%;
+  color: var(--font_color);
 }
 .card-top-icons-container {
   display: flex;
   gap: 0.65rem;
-}
-.card-top-icons-container img {
-  width: 26px;
-  cursor: pointer;
-  transition: cubic-bezier(0, 0, 0.2, 1) 0.3s;
-}
-.card-top-icons-container img:hover {
-  transform: scale(1.05);
 }
 
 .card-bottom {
@@ -75,4 +113,41 @@ html {
   padding: 0 1rem;
   font-size: 0.8rem;
   height: 36px;
+  color: var(--font_color);
+}
+
+.in-progress-card-icon-check {
+  background-image: var(--check_icon);
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+  transition: cubic-bezier(0, 0, 0.2, 1) 0.3s;
+}
+.in-progress-card-icon-delete,
+.done-card-icon-delete {
+  background-image: var(--delete_icon);
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+  transition: cubic-bezier(0, 0, 0.2, 1) 0.3s;
+}
+.in-progress-card-icon-check:hover,
+.in-progress-card-icon-delete:hover,
+.done-card-icon-back:hover,
+.done-card-icon-delete:hover {
+  transform: scale(1.05);
+}
+
+.done-card-icon-back {
+  background-image: var(--back_icon);
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+  transition: cubic-bezier(0, 0, 0.2, 1) 0.3s;
 }

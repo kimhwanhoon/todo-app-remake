@@ -1,7 +1,7 @@
 import React from 'react';
 import { styled } from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
-import { actionCreator } from 'redux/modules/In Progress Cards';
+import { actionCreator } from 'redux/modules/inProgressCards';
 // route
 import { useNavigate } from 'react-router-dom';
 
@@ -33,23 +33,19 @@ function ContentBottom() {
             <div className="card-top">
               <h1>{card.todo}</h1>
               <div className="card-top-icons-container">
-                <img
+                <div
                   className="done-card-icon-back"
-                  src="/img/back.png"
-                  alt="back to in progress"
                   onClick={(e) =>
                     actionCreator(e, dispatch, card.todo, card.time, card.id)
                   }
-                />
-                <img
+                ></div>
+                <div
                   id="card-icon-delete"
                   className="done-card-icon-delete"
-                  src="/img/delete.png"
-                  alt="delete card"
                   onClick={(e) =>
                     actionCreator(e, dispatch, card.todo, card.time, card.id)
                   }
-                />
+                ></div>
               </div>
             </div>
             <div className="card-bottom">

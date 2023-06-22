@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { styled } from 'styled-components';
 import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import { actionCreator } from 'redux/modules/In Progress Cards';
+import { actionCreator } from 'redux/modules/inProgressCards';
 
 function Detail() {
   const navigate = useNavigate();

@@ -2,5 +2,5 @@
 	"compilerOptions": {
 		"baseUrl": "src"
 	},
-	"include": ["src", "src/redux/modules/In Progress Cards.js"]
+	"include": ["src", "src/redux/modules/inProgressCards.js"]
 }

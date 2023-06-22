@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { styled } from 'styled-components';
 import { useDispatch } from 'react-redux';
-import { actionCreator } from 'redux/modules/In Progress Cards';
+import { actionCreator } from 'redux/modules/inProgressCards';
 
 function Input() {
   const dispatch = useDispatch();
@@ -70,6 +70,8 @@ const StyledInput = styled.div`
       transition: cubic-bezier(0, 0, 0.2, 1) 0.3s;
       border-radius: 5px;
       padding: 1px 10px;
+      background-color: var(--input);
+      color: var(--font_color);
     }
     > input:focus {
       outline: #818cf8 2px solid;
