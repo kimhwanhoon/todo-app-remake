@@ -1,8 +1,9 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { styled } from 'styled-components';
 import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import { actionCreator } from 'redux/modules/In Progress Cards';
 
 function Detail() {
   const navigate = useNavigate();
@@ -18,6 +19,10 @@ function Detail() {
   const targetCardTodo = targetCard.todo;
   const targetCardWroteTime = targetCard['wrote time'];
   animateDisplay();
+  //
+  const [todoValue, setTodoValue] = useState(targetCardTodo);
+  const [timeValue, setTimeValue] = useState(targetCardTime);
+  const dispatch = useDispatch();
   return (
     <StyledDetail id="detail-container">
       <div id="detail-header">
@@ -27,17 +32,36 @@ function Detail() {
         <p id="detail-uuid">Todo UUID: {targetCardID}</p>
         <div id="detail-todo-container">
           <p>Todo:</p>
-          <input id="detail-todo" value={targetCardTodo} type="text" readOnly />
+          <input
+            id="detail-todo"
+            value={todoValue}
+            type="text"
+            onChange={(e) => setTodoValue(e.target.value)}
+            readOnly
+          />
         </div>
         <div id="time-container">
           <p>Must Done by:</p>
-          <input id="detail-time" type="time" value={targetCardTime} readOnly />
+          <input
+            id="detail-time"
+            type="time"
+            value={timeValue}
+            onChange={(e) => setTimeValue(e.target.value)}
+            readOnly
+          />
         </div>
         <div id="detail-wrote-container">
           <p>Wrote at: {targetCardWroteTime}</p>
         </div>
         <div id="detail-button-container">
-          <button id="edit-button">Edit</button>
+          <button
+            id="edit-button"
+            onClick={(e) =>
+              actionCreator(e, dispatch, todoValue, timeValue, targetCardID)
+            }
+          >
+            Edit
+          </button>
           <button id="close-button" onClick={() => navigate(`/`)}>
             Close
           </button>
@@ -145,6 +169,7 @@ const StyledDetail = styled.div`
     border: none;
     height: 30px;
     text-align: center;
+    outline: none;
   }
   #detail-wrote-container {
     margin-top: 1rem;
