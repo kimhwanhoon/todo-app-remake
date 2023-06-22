@@ -93,4 +93,5 @@ const StyledContentBottom = styled.div`
   max-width: 700px;
   color: #1f2937;
   height: 400px;
+  padding-bottom: 2rem;
 `;

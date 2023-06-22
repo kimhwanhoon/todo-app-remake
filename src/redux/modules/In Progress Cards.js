@@ -84,10 +84,14 @@ function InProgressCards(state = initialState, action) {
       ];
       resetInput();
       saveLocal(result);
+      alert('Todo added successfully!');
       return result;
     }
     // Switching In Progress <-> Done
     case CHANGE: {
+      if (!confirm('Do you confirm to move this?')) {
+        return state;
+      }
       const copiedState = structuredClone(state);
       const targetIndex = copiedState.findIndex(
         (card) => card.id === action.payload.idValue
@@ -103,7 +107,9 @@ function InProgressCards(state = initialState, action) {
         return state;
       }
       const copiedState = structuredClone(state);
-      const result = copiedState.filter((card) => card.id !== action.id);
+      const result = copiedState.filter(
+        (card) => card.id !== action.payload.idValue
+      );
       saveLocal(result);
       return result;
     }
