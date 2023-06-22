@@ -4,7 +4,9 @@
 
 이번주의 과제는 Create-react-app과 Styled Components를 사용하는 것이기 때문에, 다시 만들었습니다.
 
----
+___
+
+
 ![gif](https://i.ibb.co/prVW49C/todo-app-remake.gif)
 
 
