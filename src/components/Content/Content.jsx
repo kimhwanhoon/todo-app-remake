@@ -6,7 +6,7 @@ import ContentBottom from './2 Content Bottom/Done';
 
 function Content() {
   return (
-    <StyledContent>
+    <StyledContent id="content">
       <ContentTop />
       <ContentMiddle />
       <ContentBottom />

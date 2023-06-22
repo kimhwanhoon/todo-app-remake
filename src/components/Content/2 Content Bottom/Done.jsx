@@ -2,6 +2,8 @@ import React from 'react';
 import { styled } from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { actionCreator } from 'redux/modules/In Progress Cards';
+// route
+import { useNavigate } from 'react-router-dom';
 
 function ContentBottom() {
   const dispatch = useDispatch();
@@ -9,16 +11,31 @@ function ContentBottom() {
     return state.InProgressCards;
   });
   const FetchDoneCards = () => {
+    // route
+    const navigate = useNavigate();
+    // route function
+    const clickToNavigate = (e, id) => {
+      if (e.target.classList.contains('done-card-icon-back')) {
+        return;
+      } else if (e.target.classList.contains('done-card-icon-delete')) {
+        return;
+      }
+      navigate(`/todo-detail/${id}`);
+    };
     return DoneCardsArray.filter((card) => card.done === true) // done이 false인것, 즉, In Progress
       .map((card) => {
         return (
-          <div key={card.id} className="card">
+          <div
+            key={card.id}
+            className="card"
+            onClick={(e) => clickToNavigate(e, card.id)}
+          >
             <div className="card-top">
               <h1>{card.todo}</h1>
               <div className="card-top-icons-container">
                 <img
                   className="done-card-icon-back"
-                  src="img/back.png"
+                  src="/img/back.png"
                   alt="back to in progress"
                   onClick={(e) =>
                     actionCreator(e, dispatch, card.todo, card.time, card.id)
@@ -27,7 +44,7 @@ function ContentBottom() {
                 <img
                   id="card-icon-delete"
                   className="done-card-icon-delete"
-                  src="img/delete.png"
+                  src="/img/delete.png"
                   alt="delete card"
                   onClick={(e) =>
                     actionCreator(e, dispatch, card.todo, card.time, card.id)

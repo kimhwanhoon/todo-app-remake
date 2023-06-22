@@ -1,8 +1,9 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-//
 import { styled } from 'styled-components';
 import { actionCreator } from 'redux/modules/In Progress Cards';
+// route
+import { useNavigate } from 'react-router-dom';
 
 function ContentMiddle() {
   //
@@ -16,18 +17,32 @@ function ContentMiddle() {
       }
       return state.InProgressCards;
     });
-
+    // route
+    const navigate = useNavigate();
+    // route function
+    const clickToNavigate = (e, id) => {
+      if (e.target.classList.contains('in-progress-card-icon-check')) {
+        return;
+      } else if (e.target.classList.contains('in-progress-card-icon-delete')) {
+        return;
+      }
+      navigate(`/todo-detail/${id}`);
+    };
     return cardArray
       .filter((card) => card.done === false) // done이 false인것, 즉, In Progress
       .map((card) => {
         return (
-          <div key={card.id} className="card">
+          <div
+            key={card.id}
+            className="card"
+            onClick={(e) => clickToNavigate(e, card.id)}
+          >
             <div className="card-top">
               <h1>{card.todo}</h1>
               <div className="card-top-icons-container">
                 <img
                   className="in-progress-card-icon-check"
-                  src="img/check.png"
+                  src="/img/check.png"
                   alt="mark to done"
                   onClick={(e) =>
                     actionCreator(e, dispatch, card.todo, card.time, card.id)
@@ -36,7 +51,7 @@ function ContentMiddle() {
                 <img
                   id="in-progress-card-icon-delete"
                   className="in-progress-card-icon-delete"
-                  src="img/delete.png"
+                  src="/img/delete.png"
                   alt="delete card"
                   onClick={(e) =>
                     actionCreator(e, dispatch, card.todo, card.time, card.id)
