@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { styled } from 'styled-components';
-import { actionCreator } from 'redux/modules/In Progress Cards';
+import { actionCreator } from 'redux/modules/inProgressCards';
 // route
 import { useNavigate } from 'react-router-dom';
 
@@ -40,23 +40,23 @@ function ContentMiddle() {
             <div className="card-top">
               <h1>{card.todo}</h1>
               <div className="card-top-icons-container">
-                <img
+                <div
                   className="in-progress-card-icon-check"
-                  src="/img/check.png"
+                  // src="/img/check.png"
                   alt="mark to done"
                   onClick={(e) =>
                     actionCreator(e, dispatch, card.todo, card.time, card.id)
                   }
-                />
-                <img
+                ></div>
+                <div
                   id="in-progress-card-icon-delete"
                   className="in-progress-card-icon-delete"
-                  src="/img/delete.png"
+                  // src="/img/delete.png"
                   alt="delete card"
                   onClick={(e) =>
                     actionCreator(e, dispatch, card.todo, card.time, card.id)
                   }
-                />
+                ></div>
               </div>
             </div>
             <div className="card-bottom">

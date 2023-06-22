@@ -32,9 +32,9 @@ const StyledContentTop = styled.div`
   #content-top-title {
     text-align: center;
     width: 300px;
-    border-bottom: 5px #333 solid;
+    border-bottom: var(--divider);
     padding-bottom: 0.7rem;
-    color: #333;
+    color: var(--font_color);
     font-size: 1.5rem;
     font-weight: 600;
     margin-bottom: 0.75rem;

@@ -1,6 +1,6 @@
 import { createStore } from 'redux';
 import { combineReducers } from 'redux';
-import InProgressCards from 'redux/modules/In Progress Cards';
+import InProgressCards from 'redux/modules/inProgressCards';
 
 const rootReducer = combineReducers({
   // reducer 들을 여기에 적는다.
