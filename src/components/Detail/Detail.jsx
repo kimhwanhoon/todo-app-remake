@@ -6,30 +6,29 @@ import { useNavigate } from 'react-router-dom';
 import { actionCreator } from 'redux/modules/inProgressCards';
 
 function Detail() {
-  const navigate = useNavigate();
   const param = useParams();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  //
   const cardArray = useSelector((state) => {
     return state.InProgressCards;
   });
   const targetCard = cardArray.filter(
     (card) => card.id === Number(param.id)
   )[0];
-  const targetCardID = targetCard.id;
-  const targetCardTime = targetCard.time;
-  const targetCardTodo = targetCard.todo;
-  const targetCardWroteTime = targetCard['wrote time'];
-  animateDisplay();
+
   //
-  const [todoValue, setTodoValue] = useState(targetCardTodo);
-  const [timeValue, setTimeValue] = useState(targetCardTime);
-  const dispatch = useDispatch();
+  animateDisplay();
+  const [todoValue, setTodoValue] = useState(targetCard.todo);
+  const [timeValue, setTimeValue] = useState(targetCard.time);
+
   return (
     <StyledDetail id="detail-container">
       <div id="detail-header">
         <h1>Todo Detail</h1>
       </div>
       <div id="detail-content">
-        <p id="detail-uuid">Todo UUID: {targetCardID}</p>
+        <p id="detail-uuid">Todo UUID: {targetCard.id}</p>
         <div id="detail-todo-container">
           <p>Todo:</p>
           <input
@@ -51,13 +50,13 @@ function Detail() {
           />
         </div>
         <div id="detail-wrote-container">
-          <p>Wrote at: {targetCardWroteTime}</p>
+          <p>Wrote at: {targetCard['wrote time']}</p>
         </div>
         <div id="detail-button-container">
           <button
             id="edit-button"
             onClick={(e) =>
-              actionCreator(e, dispatch, todoValue, timeValue, targetCardID)
+              actionCreator(e, dispatch, todoValue, timeValue, targetCard.id)
             }
           >
             Edit
@@ -99,12 +98,12 @@ const StyledDetail = styled.div`
   flex-direction: column;
   width: 500px;
   height: 400px;
-  background-color: #f8fafc;
+  background-color: var(--content_background);
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   border-radius: 12px;
-  box-shadow: 0 4px 6px -1px #c7d2fe, 0 2px 4px -2px #c7d2fe;
+  box-shadow: var(--detail_box_shadow);
   transition: ease-in-out 0.3s;
   opacity: 0;
   z-index: -1;
@@ -113,7 +112,7 @@ const StyledDetail = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(292deg, #141e30, #243b55);
+    background: var(--detail_header);
     border-radius: 12px 12px 0 0;
     height: 80px;
     width: 100%;
@@ -134,6 +133,7 @@ const StyledDetail = styled.div`
     flex-direction: column;
     gap: 1rem;
     align-items: center;
+    background-color: var(--content_background);
   }
   #detail-todo-container {
     width: 90%;
@@ -141,10 +141,12 @@ const StyledDetail = styled.div`
   #detail-todo-container p {
     font-weight: 600;
     padding-bottom: 0.3rem;
-    color: #333;
+    color: var(--font_color);
+  }
+  input {
+    box-shadow: var(--detail_box_shadow);
   }
   #detail-todo {
-    box-shadow: 0 4px 6px -1px #c7d2fe, 0 2px 4px -2px #c7d2fe;
     border-radius: 4px;
     width: 100%;
     height: 50px;
@@ -153,6 +155,8 @@ const StyledDetail = styled.div`
     border: none;
     outline: none;
     font-size: 1rem;
+    color: var(--font_color);
+    background-color: var(--input);
   }
   #time-container {
     width: 90%;
@@ -160,16 +164,17 @@ const StyledDetail = styled.div`
   #time-container p {
     font-weight: 500;
     padding-bottom: 0.3rem;
-    color: #333;
+    color: var(--font_color);
   }
   #detail-time {
     width: 100%;
-    box-shadow: 0 4px 6px -1px #c7d2fe, 0 2px 4px -2px #c7d2fe;
     border-radius: 4px;
     border: none;
     height: 30px;
     text-align: center;
     outline: none;
+    color: var(--font_color);
+    background-color: var(--input);
   }
   #detail-wrote-container {
     margin-top: 1rem;
@@ -186,7 +191,7 @@ const StyledDetail = styled.div`
   #detail-button-container button {
     width: 100%;
     height: 35px;
-    box-shadow: 0 4px 6px -1px #c7d2fe, 0 2px 4px -2px #c7d2fe;
+    box-shadow: var(--detail_box_shadow);
     border-radius: 4px;
     border: none;
     cursor: pointer;
@@ -204,20 +209,13 @@ const StyledDetail = styled.div`
   }
 
   #edit-button {
-    background: rgb(0, 7, 44);
-    background: linear-gradient(
-      333deg,
-      rgba(0, 7, 44, 1) 18%,
-      rgba(0, 55, 106, 1) 88%
-    );
+    background: var(--edit_button);
   }
 
   #close-button {
-    background: rgb(32, 1, 34);
-    background: linear-gradient(
-      300deg,
-      rgba(32, 1, 34, 1) 0%,
-      rgba(111, 0, 0, 1) 100%
-    );
+    background: var(--close_button);
+  }
+  p {
+    color: var(--font_color);
   }
 `;

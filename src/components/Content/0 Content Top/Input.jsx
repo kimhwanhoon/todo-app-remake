@@ -74,7 +74,7 @@ const StyledInput = styled.div`
       color: var(--font_color);
     }
     > input:focus {
-      outline: #818cf8 2px solid;
+      outline: var(--input_outline);
       transform: scale(1.05);
     }
     > #time {
@@ -84,11 +84,10 @@ const StyledInput = styled.div`
 
   button {
     width: 110px;
-    background-color: #6366f1;
+    background-color: var(--primary_button);
     border: none;
     border-radius: 10px;
-    box-shadow: 0 10px 15px -3px rgba(99, 102, 241, 0.5),
-      0 4px 6px -4px rgba(99, 102, 241, 0.5);
+    box-shadow: var(--primary_button_background);
     color: white;
     font-size: 1.15rem;
     font-weight: 500;
@@ -97,7 +96,7 @@ const StyledInput = styled.div`
   }
   button:hover {
     transform: scale(1.05);
-    background-color: #818cf8;
+    background-color: var(--primary_button_hover);
   }
   button:active {
     transform: scale(0.98);

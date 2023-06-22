@@ -29,7 +29,7 @@ export default TodoDetail;
 // STYLE
 
 const StyledMain = styled.main`
-  background: linear-gradient(305deg, #de6161, #2657eb);
+  background: var(--main_background);
   display: flex;
   flex-direction: column;
   justify-content: center;

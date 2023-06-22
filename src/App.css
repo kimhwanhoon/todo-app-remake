@@ -9,7 +9,11 @@ html {
   --main_background: linear-gradient(305deg, #de6161, #2657eb);
   --body_background1: white;
   --body_background2: #f5f7f9;
+  --input_outline: #818cf8 2px solid;
   --primary_button: #6366f1;
+  --primary_button_hover: #818cf8;
+  --primary_button_background: 0 10px 15px -3px rgba(99, 102, 241, 0.5),
+    0 4px 6px -4px rgba(99, 102, 241, 0.5);
   --header_background: linear-gradient(292deg, #141e30, #243b55);
   --font_color: #222;
   --content_background: #f8fafc;
@@ -20,7 +24,20 @@ html {
   --back_icon: url(../public/img/back.png);
   --delete_icon: url(../public/img/delete.png);
   --input: white;
+  --edit_button: linear-gradient(
+    333deg,
+    rgba(0, 7, 44, 1) 18%,
+    rgba(0, 55, 106, 1) 88%
+  );
+  --close_button: linear-gradient(
+    300deg,
+    rgba(32, 1, 34, 1) 0%,
+    rgba(111, 0, 0, 1) 100%
+  );
+  --detail_box_shadow: 0 4px 6px -1px #c7d2fe, 0 2px 4px -2px #c7d2fe;
+  --detail_header: linear-gradient(292deg, #073738, #243b55);
 }
+
 [data-theme='dark'] {
   --main_background: linear-gradient(
     205deg,
@@ -30,20 +47,28 @@ html {
   );
 
   --body_background1: black;
-  --header_background: linear-gradient(
-    23deg,
-    rgb(67, 69, 149) 0%,
-    rgba(36, 11, 54, 1) 35%
-  );
+  --header_background: linear-gradient(23deg, #659999 0%, #f4791f 100%);
   --content_background: #202225;
+  --input_outline: #6c9893 2px solid;
+  --primary_button: #6c9893;
+  --primary_button_hover: #8ac1bb;
+  --primary_button_background: 0 10px 15px -3px #6c9893;
   --font_color: white;
   --divider: 5px #f2f2f2 solid;
   --card: #1e1e1e;
-  --card_shadow: 0 4px 6px -1px #748ae0, 0 2px 4px -2px #272c43;
+  --card_shadow: 0 4px 6px -1px #d89300aa, 0 2px 4px -2px #f8af07aa;
   --check_icon: url(../public/img/check-white.png);
   --back_icon: url(../public/img/back-white.png);
   --delete_icon: url(../public/img/delete-white.png);
   --input: #0f0619;
+  --edit_button: linear-gradient(333deg, #193530 18%, rgb(1, 58, 60) 88%);
+  --close_button: linear-gradient(
+    300deg,
+    rgb(109, 0, 58) 0%,
+    rgb(81, 1, 1) 100%
+  );
+  --detail_box_shadow: 0 4px 6px -1px #2d2d2d9f, 0 2px 4px -2px #93a9ff;
+  --detail_header: linear-gradient(292deg, #073738, #243b55);
 }
 * {
   transition: 0.3s ease-in-out;
@@ -85,7 +110,7 @@ html {
   margin-bottom: 1.25rem;
 }
 .card:hover {
-  box-shadow: 0 4px 6px -1px #abbbfb, 0 2px 4px -2px #8699e5;
+  box-shadow: var(--card_shadow);
   transform: scale(1.01);
 }
 

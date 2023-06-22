@@ -1,7 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 
 function Header() {
+  useEffect(() => {
+    if (localStorage.getItem('selectedTheme')) {
+      toggleTheme.darkModeOnClickHandler();
+    }
+  }, []);
+
   return (
     <HeaderDiv>
       <h1>TO DO APP</h1>
@@ -28,6 +34,7 @@ const toggleTheme = {
     const darkModeButton = document.getElementById('darkmode-button');
     const lightModeButton = document.getElementById('lightmode-button');
     document.querySelector('body').setAttribute('data-theme', 'dark');
+    localStorage.setItem('selectedTheme', 'dark');
     darkModeButton.style.opacity = 0;
     darkModeButton.style.zIndex = -1;
     //
@@ -36,6 +43,7 @@ const toggleTheme = {
   },
   lightModeOnClickHandler: function () {
     document.querySelector('body').removeAttribute('data-theme');
+    localStorage.removeItem('selectedTheme');
     const darkModeButton = document.getElementById('darkmode-button');
     const lightModeButton = document.getElementById('lightmode-button');
     lightModeButton.style.opacity = 0;
@@ -64,6 +72,7 @@ const HeaderDiv = styled.header`
   height: 80px;
   width: 100%;
   font-size: 1.5rem;
+  transition: 0.3s ease-in-out;
 
   h1 {
     font-size: 2.15rem;
